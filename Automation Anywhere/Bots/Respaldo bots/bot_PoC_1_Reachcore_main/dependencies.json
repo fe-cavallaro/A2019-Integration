@@ -1,0 +1,1 @@
+{"path":"Automation Anywhere\\Bots\\Respaldo bots\\PoC_1_Reachcore_main","manualDependencies":[],"scannedDependencies":["Automation Anywhere\\Bots\\PoC_1_Reachcore\\Subrobots\\PoC_1_Reachcore_Busqueda_Datos","Automation Anywhere\\Bots\\PoC_1_Reachcore\\Subrobots\\PoC_1_Reachcore_CierreSesion","Automation Anywhere\\Bots\\PoC_1_Reachcore\\Subrobots\\PoC_1_Reachcore_login"]}
