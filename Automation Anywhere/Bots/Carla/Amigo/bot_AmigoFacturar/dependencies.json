@@ -1,1 +1,1 @@
-{"path":"Automation Anywhere\\Bots\\Carla\\Amigo\\AmigoFacturar","manualDependencies":[],"scannedDependencies":["Automation Anywhere\\Bots\\Carla\\AfipLogin","Automation Anywhere\\Bots\\Carla\\AfipFacturar"]}
+{"path":"Automation Anywhere\\Bots\\Carla\\Amigo\\AmigoFacturar","manualDependencies":[],"scannedDependencies":["Automation Anywhere\\Bots\\Carla\\AfipFacturar","Automation Anywhere\\Bots\\Carla\\AfipLogin"]}
