@@ -1,0 +1,335 @@
+﻿<!-- DEFINICION DE LAS VARIABLES DE ESTE CONFIG
+	1. Se supone un config que tiene como base /BOT/AMBIENTE -> DEV, QA, PROD y COMUN, dentro de cada nodo de ambiente se pueden colocar todas las variables que se necesiten
+	2. Solo se leeran las variables asociadas al ambiente en el que este el bot ejecutandose, para el caso de COMUN siempre se cargan en cualquier ambiente
+	3. En el nodo /BOT/VARIABLES debe ir cada una de las variable que se utilizaran, si una variable esta definida en los ambientes DEV, QA y PROD, solo es necesario
+		agregarla una vez en este listado
+	4. Si hay una variable con el mismo nombre en comun y en algun ambiente, primara la variable en comun, se recomienda no repetir las variables entre comun y los demas ambientes
+	5. Para crear una variable, nomenclatura
+		<VARIABLE comun="si|no" tipo="unico|loop" [base="NODO_REPETIDO"]>NOMBRE_VARIABLE</VARIABLE>
+			
+			comun=>si, indica si la variable es comun
+			comun=>no, indica que la variable esta definida en DEV, QA y PROD (una variable debe estar en los 3 ambientes, si se indica que no es comun)
+			
+			tipo=> unico, es una variable unica, no tiene varios nodos iguales dentro
+			tipo=> loop, es una variable con nodos repetidos
+			
+			base=> indica la base del nodo a repetir, solo se utiliza para tipo=loop
+			
+			NOMBRE_VARIABLE: es el nombre del nodo que se convertira a una variable en el bot
+			
+			Ej1: 
+			<VARIABLE comun="no" tipo="unico">RUTA_BASE</VARIABLE>
+			
+			se buscará una nodo en /BOT/DEV|QA|PROD/RUTA_BASE (DEV|QA|PROD dependerá del ambiente en donde se encuentre el bot ejecutandose) 
+			y el valor de esta variable se asignará en un dictionary en el bot llamado vConfig
+			Para acceder a esta variable dentro del bot, basta con escribir $vConfig{"RUTA_BASE"]}
+
+			Ej2:
+			<VARIABLE comun="si" tipo="unico">RUT_EMPRESA</VARIABLE>
+			
+			se buscará una nodo en /BOT/COMUN/RUTA_BASE y el valor de esta variable se asignará en un dictionary en el bot llamado vConfig
+			Para acceder a esta variable dentro del bot, basta con escribir $vConfig{"RUT_EMPRESA"]}
+			
+			Ej2:
+			<VARIABLE comun="no" tipo="loop" base="FONDOS/">FONDOS/FONDO/NOMBRE</VARIABLE>
+			<VARIABLE comun="no" tipo="loop" base="FONDOS/">FONDOS/FONDO/CODIGO</VARIABLE>
+			
+			Se buscará una nodo en /BOT/DEV|QA|PROD/FONDOS/FONDO/NOMBRE y el valor de esta variable se asignará en un dictionary en el bot llamado vConfig
+			Para acceder a esta variable dentro del bot, basta con escribir $vConfig{"FONDO[1]/NOMBRE"]}, $vConfig{"FONDO[2]/NOMBRE"]}, $vConfig{"FONDO[3]/NOMBRE"]}, etc
+			Ademas, se buscará una nodo en /BOT/DEV|QA|PROD/FONDOS/FONDO/CODIGO y el valor de esta variable se asignará en un dictionary en el bot llamado vConfig
+			Para acceder a esta variable dentro del bot, basta con escribir $vConfig{"FONDO[1]/CODIGO"]}, $vConfig{"FONDO[2]/CODIGO"]}, $vConfig{"FONDO[3]/CODIGO"]}, etc
+			Recomendacion, si "base" se deja vacio(base="") entonces para acceder a la variable sería asi  $vConfig{"FONDOS/FONDO[1]/CODIGO"]}
+
+############### EJEMPLO DE XML PARA LOS CASOS DE ARRIBA ########################
+<BOT>
+	<VARIABLES>
+		<VARIABLE comun="no" tipo="unico">vRutaBase</VARIABLE>
+		<VARIABLE comun="si" tipo="unico">vBaseLocal</VARIABLE>
+		<VARIABLE comun="no" tipo="loop" base="vFondos/">vFondos/vFondo/vNombre</VARIABLE>
+		<VARIABLE comun="no" tipo="loop" base="vFondos/">vFondos/vFondo/vCodigo</VARIABLE>
+	</VARIABLES>
+	
+	<DEV>
+		<vRutaBase>C:\Tomy\</vRutaBase>
+		<vFondos>
+			<vFondo>
+				<vNombre>Fondos de Inversion 1</vNombre>
+				<vCodigo>8.001-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 2</vNombre>
+				<vCodigo>8.002-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 1</vNombre>
+				<vCodigo>8.003-1</vCodigo>
+			</vFondo>				
+		<vFondos>
+	</DEV>
+
+	<QA>
+		<vRutaBase>C:\Tomy\</vRutaBase>
+		<vFondos>
+			<vFondo>
+				<vNombre>Fondos de Inversion 3</vNombre>
+				<vCodigo>8.003-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 4</vNombre>
+				<vCodigo>8.004-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 5</vNombre>
+				<vCodigo>8.005-1</vCodigo>
+			</vFondo>				
+		<vFondos>
+	</QA>
+	
+	<PROD>
+		<vRutaBase>C:\Tomy\</vRutaBase>
+		<vFondos>
+			<vFondo>
+				<vNombre>Fondos de Inversion 6</vNombre>
+				<vCodigo>8.006-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 7</vNombre>
+				<vCodigo>8.007-1</vCodigo>
+			</vFondo>				
+			<vFondo>
+				<vNombre>Fondos de Inversion 8</vNombre>
+				<vCodigo>8.008-1</vCodigo>
+			</vFondo>				
+		<vFondos>
+	</PROD>
+	
+	<COMUN>
+		<vRutEmpresa>96.571.220-8</vRutEmpresa>
+	</COMUN>
+</BOT>
+
+############### EJEMPLO DE XML PARA LOS CASOS DE ARRIBA ########################
+
+Para el ejemplo anterior todas las variables quedarán accesibles asi en el bot
+$vConfig{"vRutaBase"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería C:\Tomy\
+$vConfig{"vRutEmpresa"}=96.571.220-8, siempre traera este valor por que es comun a cualquier ambiente
+$vConfig{"vFondo[1]/vNombre"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería Fondos de Inversion 1
+$vConfig{"vFondo[1]/vCodigo"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería 8.001-1
+$vConfig{"vFondo[2]/vNombre"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería Fondos de Inversion 2
+$vConfig{"vFondo[2]/vCodigo"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería 8.002-1
+$vConfig{"vFondo[3]/vNombre"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería Fondos de Inversion 3
+$vConfig{"vFondo[3]/vCodigo"}=> dependerá su valor del ambiente en donde nos encontremos, en DEV traería 8.003-1
+
+ -->
+
+<!-- ########################################################################################## -->
+<!-- ################################# COMIENZO DEL XML REAL  ################################# -->
+<!-- ########################################################################################## -->
+
+<BOT>
+	<!-- ################################# DEFINICION DE LAS VARIABLES  ################################# -->
+	<VARIABLES>
+		<!-- ################################# VARIABLES QUE DEPENDEN DEL AMBIENTE  ################################# -->
+		<VARIABLE comun="no" tipo="unico">vBaseLocal</VARIABLE>
+		<VARIABLE comun="no" tipo="unico">vBaseCompartido</VARIABLE>
+		<VARIABLE comun="no" tipo="unico">vBasePlantilla</VARIABLE>		
+		<VARIABLE comun="no" tipo="unico">vRutaApp1</VARIABLE>		
+		<VARIABLE comun="no" tipo="unico">vIntentosApp1</VARIABLE>		
+		<VARIABLE comun="no" tipo="unico">vDelayApp1</VARIABLE>		
+		<VARIABLE comun="no" tipo="unico">vDelayOpcionalPB</VARIABLE>		
+		<VARIABLE comun="no" tipo="unico">vDelayOpcionalWeb</VARIABLE>		
+
+	<!-- ################################# VARIABLES COMUNES  ################################# -->
+		<VARIABLE comun="si" tipo="unico">vPlantillaWord</VARIABLE>
+		
+	<!-- #########################     BOT: utilidad_crearEstructuraCarpetas ################################ -->
+		<!-- _________________________ CARPETAS DEL AMBIENTE  _________________________ -->
+		<VARIABLE comun="si" tipo="unico">vNCarpetasAmb</VARIABLE>
+		<VARIABLE comun="si" tipo="loop" base="vCarpetasAmb/">vCarpetasAmb/vCarpetaAmb</VARIABLE>
+
+		<!-- _________________________ ARCHIVOS DEL AMBIENTE  _________________________ -->
+		<VARIABLE comun="si" tipo="unico">vNArchivosAmb</VARIABLE>
+		<VARIABLE comun="si" tipo="loop" base="vAmbiente/">vAmbiente/vArchAmb/vBase</VARIABLE>
+		<VARIABLE comun="si" tipo="loop" base="vAmbiente/">vAmbiente/vArchAmb/vNombreArch</VARIABLE>
+		<VARIABLE comun="si" tipo="loop" base="vAmbiente/">vAmbiente/vArchAmb/vRutaDestino</VARIABLE>
+		<VARIABLE comun="si" tipo="loop" base="vAmbiente/">vAmbiente/vArchAmb/vNombreArchDest</VARIABLE>
+		
+
+		<!-- #########################   BOT:  00_Master_GestTransfers          ################################# -->	
+		<VARIABLE comun="si" tipo="unico">vNombreBot</VARIABLE>
+
+	<!-- ################################## BOT:  utilidad_mensajeria ######################################## -->
+		<VARIABLE comun="si" tipo="unico">vArchivoLog</VARIABLE>		
+		<VARIABLE comun="si" tipo="unico">vArchivoLogError</VARIABLE>				
+		<VARIABLE comun="si" tipo="unico">vCarpetaPantallazos</VARIABLE>				
+
+		<!-- ################################# CARPETA DONDE SE DEBE RESPALDAR  ################################# -->
+		<VARIABLE comun="no" tipo="unico">vRutaRespaldo</VARIABLE>
+
+		<!-- #########################     Definiciòn de lo que se debe respaldar ################################ -->
+		<!-- _________________________ Elementos a respaldar (deben ser de la carpeta de AMBIENTE) _________________________ -->
+		<VARIABLE comun="si" tipo="unico">vNElementosResp</VARIABLE>
+		<VARIABLE comun="si" tipo="unico">vCarpetaRespaldoTmp</VARIABLE>		
+		<VARIABLE comun="si" tipo="loop" base="vElementosResp/">vElementosResp/vElementoResp/vPath</VARIABLE> <!-- Indica el path del elemnto -->
+		<VARIABLE comun="si" tipo="loop" base="vElementosResp/">vElementosResp/vElementoResp/vTipo</VARIABLE> <!-- Indica si el elemento es una carpeta o un archivo -->
+		<VARIABLE comun="si" tipo="loop" base="vElementosResp/">vElementosResp/vElementoResp/vPatron</VARIABLE> <!-- Indica que extensiones se agregan,si es vacio es todo, y solo para carpetas -->
+
+	</VARIABLES>
+	
+	<!-- #################################################################################################### -->
+	<!-- #################################################################################################### -->
+	<!-- ################################# LLENADO DE LAS VARIABLES  ################################# -->
+	<!-- ################################# AMBIENTE DESARROLLO  ################################# -->
+	
+	<DEV>
+		<vBaseLocal>C:\Tomy\CM00-Comun</vBaseLocal>  <!-- Ruta base del bot en el disco local -->
+		<vBaseCompartido>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\COMPARTIDO\</vBaseCompartido>  <!-- Ruta base del bot en el disco compartido de Tomy -->
+		<vBasePlantilla>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\PLANTILLA\</vBasePlantilla>  <!-- Ruta base del bot en el disco compartido de Tomy donde estaran las plantillas que utilizará el bot-->
+		<vRutaRespaldo>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\RESPALDO\</vRutaRespaldo>  <!-- Ruta base del bot en donde dejará el respaldo -->
+		<!-- INICIO Aplicativo o pagina Web -->
+		<!-- Para cada uno de ellos se debe definir su ruta, sus reintentos y su delays de camino critico -->
+		<vRutaApp1>K:\Apps-win\PB90\BIN\ploepi93.exe</vRutaApp1>  <!-- Ruta de la app powerbuilder o de la web -->
+		<vIntentosApp1>1</vIntentosApp1> <!-- Numero de intentos par este app o web -->
+		<vDelayApp1>60</vDelayApp1>	<!-- Delay de espera en seg. de ventanas u objetos obligatorios, que si no aparecen hay un error -->
+		<!-- FIN Aplicativo o pagina Web -->
+		
+		<!-- Delay Opcionales son por tecnología y corresponde al tiempo que se esperará un objeto o ventana que no siempre aparece -->
+		<vDelayOpcionalPB>10</vDelayOpcionalPB>	<!-- Delay Opcional en seg. de PowerBuilder  -->
+		<vDelayOpcionalWeb>10</vDelayOpcionalWeb> <!-- Delay Opcional en seg. de paginas webs  -->	
+	</DEV>
+
+	<!-- ################################# AMBIENTE QA ################################# -->
+	<QA>
+		<vBaseLocal>C:\Tomy\CM00-Comun</vBaseLocal>  <!-- Ruta base del bot en el disco local -->
+		<vBaseCompartido>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\COMPARTIDO\</vBaseCompartido>  <!-- Ruta base del bot en el disco compartido de Tomy -->
+		<vBasePlantilla>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\PLANTILLA\</vBasePlantilla>  <!-- Ruta base del bot en el disco compartido de Tomy donde estaran las plantillas que utilizará el bot-->
+		<vRutaRespaldo>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\RESPALDO\</vRutaRespaldo>  <!-- Ruta base del bot en donde dejará el respaldo -->
+		<!-- INICIO Aplicativo o pagina Web -->
+		<!-- Para cada uno de ellos se debe definir su ruta, sus reintentos y su delays de camino critico -->
+		<vRutaApp1>K:\Apps-win\PB90\BIN\ploepi93.exe</vRutaApp1>  <!-- Ruta de la app powerbuilder o de la web -->
+		<vIntentosApp1>1</vIntentosApp1> <!-- Numero de intentos par este app o web -->
+		<vDelayApp1>60</vDelayApp1>	<!-- Delay de espera en seg. de ventanas u objetos obligatorios, que si no aparecen hay un error -->
+		<!-- FIN Aplicativo o pagina Web -->
+		
+		<!-- Delay Opcionales son por tecnología y corresponde al tiempo que se esperará un objeto o ventana que no siempre aparece -->
+		<vDelayOpcionalPB>10</vDelayOpcionalPB>	<!-- Delay Opcional en seg. de PowerBuilder  -->
+		<vDelayOpcionalWeb>10</vDelayOpcionalWeb> <!-- Delay Opcional en seg. de paginas webs  -->	
+	</QA>
+	
+	<!-- ################################# AMBIENTE PRODUCTIVO ################################# -->
+	<PRD>
+		<vBaseLocal>C:\Tomy\CM00-Comun</vBaseLocal>  <!-- Ruta base del bot en el disco local -->
+		<vBaseCompartido>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\COMPARTIDO\</vBaseCompartido>  <!-- Ruta base del bot en el disco compartido de Tomy -->
+		<vBasePlantilla>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\PLANTILLA\</vBasePlantilla>  <!-- Ruta base del bot en el disco compartido de Tomy donde estaran las plantillas que utilizará el bot-->
+		<vRutaRespaldo>C:\Tomy\CM00-Comun\DISCOS COMPARTIDOS\RESPALDO\</vRutaRespaldo>  <!-- Ruta base del bot en donde dejará el respaldo -->
+		<!-- INICIO Aplicativo o pagina Web -->
+		<!-- Para cada uno de ellos se debe definir su ruta, sus reintentos y su delays de camino critico -->
+		<vRutaApp1>K:\Apps-win\PB90\BIN\ploepi93.exe</vRutaApp1>  <!-- Ruta de la app powerbuilder o de la web -->
+		<vIntentosApp1>1</vIntentosApp1> <!-- Numero de intentos par este app o web -->
+		<vDelayApp1>60</vDelayApp1>	<!-- Delay de espera en seg. de ventanas u objetos obligatorios, que si no aparecen hay un error -->
+		<!-- FIN Aplicativo o pagina Web -->
+		
+		<!-- Delay Opcionales son por tecnología y corresponde al tiempo que se esperará un objeto o ventana que no siempre aparece -->
+		<vDelayOpcionalPB>10</vDelayOpcionalPB>	<!-- Delay Opcional en seg. de PowerBuilder  -->
+		<vDelayOpcionalWeb>10</vDelayOpcionalWeb> <!-- Delay Opcional en seg. de paginas webs  -->	
+	</PRD>
+	
+	<!-- ################################# VARIABLES QUE SIRVEN PARA TODOS LOS AMBIENTES ################################# -->
+
+	<COMUN>
+		<vNombreBot>CODIGO y NOMBRE DEL BOT</vNombreBot>  <!-- EJEMPLO: 0011OTTTR-GestTransfers -->
+	
+	<!-- #################################################################################################### -->
+	<!-- ##############################BOT: utilidad_crearEstructuraCarpetas ################################ -->
+
+	<!-- _________________________ Carpetas del entorno de ejecucion _________________________ -->
+	<!-- TIP: Son las carpetas que se crearan cuando se ejecute el bot, dentro de la instancia de ejecucion -->
+		<vNCarpetasAmb>5</vNCarpetasAmb> <!-- numero de carpetas a crear en el disco local -->
+		<vCarpetasAmb> <!-- carpetas a crear en el disco local -->
+			<vCarpetaAmb>00Logs\</vCarpetaAmb>
+			<vCarpetaAmb>01Entradas\</vCarpetaAmb>
+			<vCarpetaAmb>02Salidas\</vCarpetaAmb>
+			<vCarpetaAmb>03Temp\</vCarpetaAmb>
+			<vCarpetaAmb>03Temp\Pantallazos\</vCarpetaAmb>
+		</vCarpetasAmb>
+
+	<!-- _________________________ Archivos del entorno de ejecucion _________________________ -->
+	<!-- _________________________ Inicialmente se habia considerado sacarlos desde el Control room, pero la funcion no funciona ;P_________________________ -->
+	<!-- _________________________ por lo que se supone que la carpeta plantilla esta en una ruta compartida (de red por ejemplo) _________________________ -->
+	<!-- TIP: Son los archivos que se copiaran desde el control room hacia las carpetas de ambiente creadas -->
+		<vNArchivosAmb>3</vNArchivosAmb> <!-- numero de archivos a copiar en el ambiente -->
+		<vAmbiente> <!-- archivos a copiar en el disco local -->
+			<vArchAmb>
+				<vBase>vBasePlantilla</vBase> <!-- Nombre de la ruta donde se sacaran las plantillas, debe estar definido en este mismo XML con un nodo mas -->
+				<vNombreArch>ejecucion.vbs.txt</vNombreArch> <!-- Nombre del archivo -->
+				<vRutaDestino>01Entradas\</vRutaDestino>  <!-- Carpeta dentro de la estructura local donde se dejará el archivo, esta carpeta debe estar creada como carpeta en el item anterior -->
+				<vNombreArchDest>ejecucion.vbs</vNombreArchDest> <!-- Nombre del archivo de destino, si es necesario cambiar el nombre de la plantilla se puede colocar un nombre aca, si se deja vacío se mantiene el nombre original -->
+			</vArchAmb>
+			<vArchAmb>
+				<vBase>vBasePlantilla</vBase> 
+				<vNombreArch>ejemplo excel.xlsx</vNombreArch> 
+				<vRutaDestino>03Temp\</vRutaDestino> 
+				<vNombreArchDest></vNombreArchDest>
+			</vArchAmb>
+			<vArchAmb>
+				<vBase>vBaseCompartido</vBase>
+				<vNombreArch>Plantilla Documento.docx</vNombreArch> 
+				<vRutaDestino>01Entradas\</vRutaDestino> 
+				<vNombreArchDest></vNombreArchDest>
+			</vArchAmb>
+		</vAmbiente>
+
+	<!-- #################################################################################################### -->
+	<!-- ############################BOT:  00_Master_GestTransfers               ################################# -->
+		<vPlantillaWord>01Entradas\Plantilla Documento.docx</vPlantillaWord>  <!-- nombre de la plantilla word-->		
+
+
+	<!-- #################################################################################################### -->
+	<!-- ####################################BOT:  utilidad_mensajeria ######################################## -->
+		<vArchivoLog>00Logs\logs auditoria.xls</vArchivoLog>  <!-- lugar del archivo de logs -->		
+		<vArchivoLogError>00Logs\logs errores.xls</vArchivoLogError>  <!-- lugar del archivo de logs de Errores -->			
+		<vCarpetaPantallazos>03Temp\Pantallazos\</vCarpetaPantallazos>  <!-- Carpeta para guardar los pantallazos --> 
+
+	<!-- #################################################################################################### -->
+	<!-- ####################################BOT:  utilidad_respaldo ######################################## -->
+	<!-- TIP: Son los archivos y/o carpetas que se agregaran a un zip y se dejaran en la carpeta de respaldo -->
+		<vNElementosResp>5</vNElementosResp> <!-- numero de archivos o carpetas a copiar en el ambiente -->
+		<vCarpetaRespaldoTmp>Respaldo_tmp\</vCarpetaRespaldoTmp> <!-- carpeta que se crea temporalmente para despues zipearla -->
+		<vElementosResp> <!-- archivos a copiar en el disco local -->
+			<vElementoResp>
+				<vPath>00Logs\</vPath> <!-- Relativo a la base instancia, si es carpeta debe terminar en \ -->
+				<vTipo>carpeta</vTipo> <!-- archivo o carpeta, si es carpeta copia todos los archivos de la carpeta al zip, no es necesario indicar cada arhcivo de la carpeta en este XML-->
+				<vPatron></vPatron> <!-- respaldará todo lo que cumple elu patron en el nombre del archivo, si es vacio respalda todo  -->
+			</vElementoResp>
+			<vElementoResp>
+				<vPath>01Entradas\</vPath> <!-- si es un archivo especifico que se creara durante la ejecución se pude dejar como variable -->
+				<vTipo>carpeta</vTipo> 
+				<vPatron></vPatron> 
+			</vElementoResp>
+			<vElementoResp>
+				<vPath>02Salidas\</vPath>
+				<vTipo>carpeta</vTipo> 
+				<vPatron></vPatron> 
+			</vElementoResp>
+			<vElementoResp>
+				<vPath>03Temp\</vPath>
+				<vTipo>carpeta</vTipo> 
+				<vPatron></vPatron> 
+			</vElementoResp>
+			<vElementoResp>
+				<vPath>03Temp\Pantallazos\</vPath>
+				<vTipo>carpeta</vTipo> 
+				<vPatron></vPatron> 
+			</vElementoResp>
+			<vElementoResp>
+				<vPath>01Entradas\Plantilla Documento.docx</vPath>
+				<vTipo>archivo</vTipo> 
+				<vPatron></vPatron> 
+			</vElementoResp>
+		</vElementosResp>
+	
+	</COMUN>
+	
+
+</BOT>
+

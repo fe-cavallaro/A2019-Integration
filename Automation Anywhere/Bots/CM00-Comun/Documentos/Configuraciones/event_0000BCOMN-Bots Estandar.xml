@@ -1,0 +1,282 @@
+﻿<!-- Archivo de configuraciones para el control y notificación de eventos y excepciones -->
+<!-- Nombre del Bot: Rpa Challenge -->
+<!-- Versión: 1.0 -->
+
+<MENSAJERIA>
+	<!--****************************************************************************************************************************-->
+	<!--************************************** DESARROLLO DESARROLLO DESARROLLO DESARROLLO *****************************************-->
+	<!--****************************************************************************************************************************-->
+	<DEV>
+		<!--************************************* EXCEPCIONES DE PROCESO (TO Y CC)***************************************************-->
+		<ERRORES>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->						
+			<ERR_DEFAULT>
+				<!--Destinatarios administradores tecnicos -->	
+				
+				<to_adm>marcelo.vergara@banchile.cl</to_adm>
+				<cc_adm></cc_adm>
+				<!--Destinatarios usuarios -->						
+				<to_user>marcelo.vergara@banchile.cl</to_user>
+				<cc_user></cc_user>
+				<!-- medios -->						
+				<vLog>SI</vLog>
+				<vMail>SI</vMail>
+				<vPantalla>SI</vPantalla>
+				<vTiempoPantalla>5</vTiempoPantalla> <!-- cuanto rato estará el mensaje en pantalla, Vacio es que estará siempre -->
+			</ERR_DEFAULT>
+
+			<!-- PERSONALIZACION DE ERRORES --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<ERR001>
+			</ERR001>
+			<!-- FIN PERSONALIZACION DE ERRORES --> 
+
+		</ERRORES>
+
+		<!--***************************************** EVENTOS DE PROCESO (TO Y CC)**************************************************-->
+		<EVENTOS>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->
+		<!--Los eventos no es necesario un destinatario tecnico y usuario -->
+			<EVE_DEFAULT>
+				<to>marcelo.vergara@banchile.cl</to>
+				<cc></cc>
+				<vLog>SI</vLog>
+				<vMail>NO</vMail>
+				<vPantalla>SI</vPantalla>
+				<vTiempoPantalla>2</vTiempoPantalla>
+			</EVE_DEFAULT>
+			<EVE_INI>
+				<vMail>SI</vMail>
+			</EVE_INI>
+			<EVE001>
+				<vLog>NO</vLog> <!-- Es NO, porque en este evento aun no se crean las carpetas donde alojar el Log -->
+			</EVE001>
+			<EVE_FIN>
+				<vMail>SI</vMail>
+			</EVE_FIN>
+
+			<!-- PERSONALIZACION DE EVENTOS --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<EVE001>
+			</EVE001>
+			<!-- FIN PERSONALIZACION DE EVENTOS --> 
+
+		</EVENTOS>
+		<metodoConexion>Outlook</metodoConexion> <!-- opciones: Outlook o Servidor -->
+		<from>marcelo.vergara@banchile.cl</from>
+		<host>10.1.0.24</host>
+		<port>25</port>
+	</DEV>
+	<!--****************************************************************************************************************************-->
+	<!--**************************************** CALIDAD CALIDAD CALIDAD CALIDAD CALIDAD *******************************************-->
+	<!--****************************************************************************************************************************-->
+	<QA>
+		<!--************************************* EXCEPCIONES DE PROCESO (TO Y CC)***************************************************-->
+		<ERRORES>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->						
+			<ERR_DEFAULT>
+				<!--Destinatarios administradores tecnicos -->						
+				<to_adm>Gerard.Munoz@banchile.cl</to_adm>
+				<cc_adm></cc_adm>
+				<!--Destinatarios usuarios -->						
+				<to_user>Gerard.Munoz@banchile.cl</to_user>
+				<cc_user></cc_user>
+				<vLog>SI</vLog>
+				<vMail>SI</vMail>
+				<vPantalla>SI</vPantalla>
+				<vTiempoPantalla>5</vTiempoPantalla>
+			</ERR_DEFAULT>
+
+			<!-- PERSONALIZACION DE ERRORES --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<ERR001>
+			</ERR001>
+			<!-- FIN PERSONALIZACION DE ERRORES --> 
+
+		</ERRORES>		
+
+		<!--***************************************** EVENTOS DE PROCESO (TO Y CC)**************************************************-->
+		<EVENTOS>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->
+			<EVE_DEFAULT>
+				<to>Gerard.Munoz@banchile.cl</to>
+				<cc></cc>
+				<vLog>SI</vLog>
+				<vMail>SI</vMail>
+				<vPantalla>SI</vPantalla>
+				<vTiempoPantalla>5</vTiempoPantalla>
+			</EVE_DEFAULT>
+			<EVE001>
+				<vLog>NO</vLog>  <!-- Es NO, porque en este evento aun no se crean las carpetas donde alojar el Log -->
+			</EVE001>
+
+			<!-- PERSONALIZACION DE EVENTOS --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<EVE001>
+			</EVE001>
+			<!-- FIN PERSONALIZACION DE EVENTOS --> 
+
+		</EVENTOS>
+		<metodoConexion>Servidor</metodoConexion> <!-- opciones: Outlook o Servidor -->
+		<from>Gerard.Munoz@banchile.cl</from>
+		<host>10.1.0.24</host>
+		<port>25</port>
+	</QA>
+	<!--****************************************************************************************************************************-->
+	<!--************************************** PRODUCCION PRODUCCION PRODUCCION PRODUCCION *****************************************-->
+	<!--****************************************************************************************************************************-->
+	<PRD>
+		<!--************************************* EXCEPCIONES DE PROCESO (TO Y CC)***************************************************-->
+
+		<ERRORES>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->						
+			<ERR_DEFAULT>
+				<!--Destinatarios administradores tecnicos -->						
+				<to_adm>marcelo.vergara@banchile.cl</to_adm>
+				<cc_adm>mpineda@banchile.cl,diego.cornejo@banchile.cl,macarena.rodriguez@banchile.cl</cc_adm>
+				<!--Destinatarios usuarios -->						
+				<to_user>marcelo.vergara@banchile.cl</to_user>
+				<cc_user></cc_user>
+				<vLog>SI</vLog>
+				<vMail>SI</vMail>
+				<vPantalla>NO</vPantalla>
+				<vTiempoPantalla>5</vTiempoPantalla>
+			</ERR_DEFAULT>
+
+			<!-- PERSONALIZACION DE ERRORES --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<ERR001>
+			</ERR001>
+			<!-- FIN PERSONALIZACION DE ERRORES --> 
+
+		</ERRORES>	
+
+		<!--***************************************** EVENTOS DE PROCESO (TO Y CC)**************************************************-->
+		<EVENTOS>
+		<!--Destinatarios por defecto cuando no se definan destinatarios especificos -->
+			<EVE_DEFAULT>
+				<to>marcelo.vergara@banchile.cl</to>
+				<cc>diego.cornejo@banchile.cl,macarena.rodriguez@banchile.cl</cc>
+				<vLog>SI</vLog>
+				<vMail>NO</vMail>
+				<vPantalla>NO</vPantalla>
+				<vTiempoPantalla>5</vTiempoPantalla>
+			</EVE_DEFAULT>
+			<EVE_INI>
+				<vMail>SI</vMail>
+			</EVE_INI>
+			<EVE001>
+				<vLog>NO</vLog> <!-- Es NO, porque en este evento aun no se crean las carpetas donde alojar el Log -->
+			</EVE001>
+			
+			<!-- PERSONALIZACION DE EVENTOS --> 
+			<!-- Si se necesita definir algo distinto a lo definido por defecto --> 
+			<EVE001>
+			</EVE001>
+			<!-- FIN PERSONALIZACION DE EVENTOS --> 
+			
+			<EVE_FIN>
+				<vMail>SI</vMail>
+			</EVE_FIN>
+		</EVENTOS>
+
+		<metodoConexion>Servidor</metodoConexion> <!-- opciones: Outlook o Servidor -->
+		<from>tomy@banchile.cl</from>
+		<host>200.10.1.137</host>
+		<port>25</port>
+	</PRD>
+	<!--****************************************************************************************************************************-->
+	<!--******************************************* COMÚN PARA LOS TRES AMBIENTES  *************************************************-->
+	<!--****************************************************************************************************************************-->	
+	<COMMON>
+		<!-- Nota: los páramtros: FROM, HOST Y PORT estarán configurados desde el baul de credenciales-->
+
+		
+		<!--**************************** EXCEPCIONES DE PROCESO (SUBJECT Y BODY)****************************************************-->
+		<ERRORES>
+			<ERR_DEFAULT>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Error inesperado durante la ejecución</subject>
+				<body>Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR_DEFAULT>
+		<!--ERRORUSR | Detalle: Como se le informará el error al usuario -->
+
+			<ERRUSR>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Error inesperado durante la ejecución</subject>
+				<body>Ha ocurrido un problema durante la ejecución del Bot por favor contactar a los responsables técnicos para mayores detalles.</body>
+			</ERRUSR>
+		<!--ERROR000 | Detalle: Error inesperado, revisar detalle de ejecución -->
+			<ERR000>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Error inesperado durante la ejecución</subject>
+				<body>Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR000>
+			<ERR001>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Ha ocurrido un problema al procesar el XML</subject>
+				<body>$vTipoMensaje$: Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR001>
+			<ERR002>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Ha ocurrido un problema al crear las carpetas del Bot</subject>
+				<body>$vTipoMensaje$: Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR002>
+			
+		<!--ERRORES PROPIOS DEL BOT -->
+			
+			<ERR003>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Ha ocurrido un problema al tratar de Ejecutar el Bot</subject>
+				<body>$vTipoMensaje$: Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR003>
+		<!--ERRORES PROPIOS DEL BOT -->
+
+			<ERR_RESP>
+				<subject>$vNombreBot$ - $vTipoMensaje$: Ha ocurrido un problema al crear el respaldo de la ejecución</subject>
+				<body>$vTipoMensaje$: Ocurrió el siguiente problema '$vMsjErr$' en la linea '$vLineaErr$' en la tarea '$vTaskbot$'</body>
+			</ERR_RESP>
+
+		</ERRORES>
+		<!--************************************* EVENTOS DE PROCESO (SUBJECT Y BODY)**********************************************-->
+		<!-- Al menos un evento INI y uno FIN-->
+		
+		<EVENTOS>
+			<EVE_DEFAULT>
+			<!--EVE_000 | Detalle: Evento Generico --> 
+				<subject>$vNombreBot$ - $vSubject$</subject>
+				<body>$vBody$</body>
+			</EVE_DEFAULT>
+
+			<EVE_INI>
+			<!--EVE_INI EVENTO DE INICIO --> 
+				<subject>$vNombreBot$ - Ha Comenzado el proceso de Gestión de Transferencias</subject>
+				<body>Tomy ha comenzado a procesar cartas de Transferencias</body>
+			</EVE_INI>
+			
+			<EVE001>
+				<subject>$vNombreBot$ - $vTipoMensaje$ Carga correcta del XML</subject>
+				<body>Tomy ha cargado correctamente el XML de configuración</body>
+			</EVE001>
+			<EVE002>
+				<subject>$vNombreBot$ - $vTipoMensaje$ Creación de carpetas correctamente</subject>
+				<body>Tomy ha creado las carpetas y copiado los archivos necesarios para comenzar el proceso</body>
+			</EVE002>
+
+		<!--EVENTOS PROPIOS DEL BOT -->
+			<EVE003>
+				<subject>$vNombreBot$ - $vTipoMensaje$ Se termino de procesar la primera tarea</subject>
+				<body>Tomy ha realizado correctamente la primera tarea</body>
+			</EVE003>
+
+		<!--EVENTOS PROPIOS DEL BOT -->
+
+			<!--EVE_RESP  EVE DE RESPALDO DE LA EJECUCION EXITOSO--> 
+			<EVE_RESP>
+				<subject>$vNombreBot$ - $vTipoMensaje$ Respaldo Realizado</subject>
+				<body>Se realizo el respaldo de la instancia de ejecución exitosamente</body>
+			</EVE_RESP>
+			<EVE_FIN>
+				<subject>$vNombreBot$ - Ha Finalizado el proceso de Gestión de Transferencias</subject>
+				<body>Tomy ha finalizado de procesar todas las cartas de Transferencias que encontró en su buzon</body>
+			</EVE_FIN>
+			
+		</EVENTOS>
+		<TOMY>Tomy NOMBRE AREA</TOMY> <!-- EJEMPLO: Tomy Transferencias -->
+		<vNombreBot>CODIGO y NOMBRE DEL BOT</vNombreBot>  <!-- EJEMPLO: 0011OTTTR-GestTransfers -->
+	</COMMON>
+</MENSAJERIA>
