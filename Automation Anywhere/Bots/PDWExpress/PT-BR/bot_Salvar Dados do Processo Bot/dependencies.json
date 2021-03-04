@@ -1,1 +1,1 @@
-{"path":"Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Salvar Dados do Processo Bot","manualDependencies":[],"scannedDependencies":[]}
+{"path":"Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Salvar Dados do Processo Bot","manualDependencies":[],"scannedDependencies":["Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Avaliar Processos Bot"]}
