@@ -1,1 +1,1 @@
-{"path":"Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Avaliar Processos Bot","manualDependencies":[],"scannedDependencies":[]}
+{"path":"Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Avaliar Processos Bot","manualDependencies":[],"scannedDependencies":["Automation Anywhere\\Bots\\PDWExpress\\PT-BR\\Populate excel"]}
